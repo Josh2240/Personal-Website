@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/r.ico" class="id-icon">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span>personal website</span>
+            <div class="underline"></div>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/socials">Socials</a></li>
+                <li><a href="/projects">Projects</a></li>
+            </ul>
+        </nav>
+        <main>
+            <span class="highlight">socials</span>
+            <i><img src="/assets/down.png" alt="down" id="down-arrowv3"></i>
+            <div class="social-icons" id="social-icons">
+                <!-- Social icons will be loaded dynamically -->
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Load socials from API
+        async function loadSocials() {
+            try {
+                const response = await fetch('/api/socials');
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    const socialsContainer = document.getElementById('social-icons');
+                    socialsContainer.innerHTML = '';
+                    
+                    result.data.forEach(social => {
+                        const link = document.createElement('a');
+                        link.href = social.url;
+                        link.target = '_blank';
+                        link.rel = 'noopener noreferrer';
+                        
+                        const img = document.createElement('img');
+                        img.src = social.icon || `assets/${social.platform}.png`;
+                        img.alt = social.platform;
+                        img.className = 'icons';
+                        
+                        link.appendChild(img);
+                        socialsContainer.appendChild(link);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading socials:', error);
+                // Fallback to default socials
+                const socialsContainer = document.getElementById('social-icons');
+                socialsContainer.innerHTML = `
+                    <a href="https://github.com/Josh2240"><img src="assets/github.png" alt="github" class="icons"></a>
+                    <a href="https://www.instagram.com/enji_adachi/"><img src="assets/instagram.png" alt="instagram" class="icons"></a>
+                    <a href="https://www.facebook.com/joshua.cabradilla.946/"><img src="assets/facebook.png" alt="facebook" class="icons"></a>
+                `;
+            }
+        }
+        
+        loadSocials();
+    </script>
+</body>
+</html>

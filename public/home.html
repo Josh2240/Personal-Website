@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Website</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/r.ico" class="id-icon">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span>personal website</span>
+            <div class="underline"></div>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/socials">Socials</a></li>
+                <li><a href="/projects">Projects</a></li>
+            </ul>
+        </nav>
+        <main>
+            <div class="hero">
+                <h1 id="hero-name">hi, i'm josh</h1>
+                <span id="hero-title">front end engineer</span>
+                <i><img src="/assets/down.png" alt="down" id="down-arrow"></i>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Load profile data for home page
+        async function loadHomeProfile() {
+            try {
+                const response = await fetch('/api/profile');
+                const result = await response.json();
+                
+                if (result.success && result.data) {
+                    const profile = result.data;
+                    const name = profile.name || 'josh';
+                    document.getElementById('hero-name').textContent = `hi, i'm ${name.split(' ')[0]}`;
+                    document.getElementById('hero-title').textContent = profile.title || 'front end engineer';
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+        }
+        
+        loadHomeProfile();
+    </script>
+</body>
+</html>
