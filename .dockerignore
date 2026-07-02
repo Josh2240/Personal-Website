@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+README.md
+SETUP_GUIDE.md
+XAMPP_SETUP.md
+.next
+.env.local
+out
+dist

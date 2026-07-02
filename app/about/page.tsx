@@ -8,6 +8,7 @@ import Image from 'next/image'
 interface Profile {
   name?: string
   title?: string
+  bio?: string
   education?: string
   profile_image?: string
   interests?: string[]
@@ -15,6 +16,7 @@ interface Profile {
 
 export default function About() {
   const [profile, setProfile] = useState<Profile | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchProfile()
@@ -30,70 +32,66 @@ export default function About() {
       }
     } catch (error) {
       console.error('Error loading profile:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
+  const interests = profile?.interests || ['music', 'photography', 'gaming (valorant)', 'coding', 'physical activities like going to gym']
+
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="w-full min-h-screen bg-background text-text-light overflow-hidden">
       <Header />
       <Navigation />
-      <main className="bg-transparent w-full h-screen overflow-y-auto relative pb-10 overflow-hidden">
-        <div className="absolute top-[30%] left-[20%] w-[60%] h-[150px] flex items-center justify-center bg-transparent">
-          <span className="text-text-light font-quicksand font-bold text-center uppercase bg-transparent w-[80%] text-5xl absolute top-[-90%] left-[10%] animate-zoom-in">
-            about me
-          </span>
-        </div>
-        <i className="absolute h-[30px] top-[21%] left-[49%] block cursor-pointer animate-bounce-slow">
-          <Image 
-            src="/assets/down.png" 
-            alt="down" 
-            width={30} 
-            height={30}
-            className="brightness-100 contrast-100"
-            unoptimized
-          />
-        </i>
-        <div className="bg-text-light w-full h-[1px] absolute top-[30%] left-0 shadow-[0_0_10px_#cccccc] animate-zoom-in"></div>
-        
-        <div className="bg-transparent h-[230px] min-w-screen absolute top-[30%] left-0 animate-zoom-in">
-          <Image 
-            id="circle-profile"
-            src={profile?.profile_image || '/assets/a7c37f61-b29a-4304-920a-ce40bda43034.jpg'} 
-            alt="circle-profile"
-            width={112}
-            height={112}
-            className="w-[7vw] min-h-[12.3vh] h-[14.5vh] rounded-full absolute top-[5%] left-[30%]"
-          />
-          <span className="text-text-light font-quicksand font-bold flex items-center justify-center capitalize no-underline leading-[1.5] relative mt-5 text-4xl text-shadow-[0_0_10px_#cccccc]">
-            {profile?.name || 'josh cabradilla'}
-          </span>
-          <small className="font-quicksand font-bold flex items-center justify-center capitalize no-underline leading-[1.5] relative">
-            {profile?.title || 'aspiring front end engineer, fresh grad BSIT student'}
-          </small>
-        </div>
+      <main className="relative mx-auto flex min-h-screen max-w-6xl flex-col gap-10 sm:gap-14 px-4 py-24 sm:px-6 lg:px-10 w-full">
+        <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+          <span className="text-sm uppercase tracking-[0.4em] text-[#9f9f9f]">About Me</span>
+          <div className="mt-8 grid gap-10 lg:grid-cols-[320px_minmax(0,1fr)] items-start">
+            <div className="overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-5 shadow-lg shadow-black/20">
+              <Image
+                src={profile?.profile_image || '/assets/a7c37f61-b29a-4304-920a-ce40bda43034.jpg'}
+                alt={profile?.name || 'Profile'}
+                width={320}
+                height={320}
+                className="h-full w-full rounded-[24px] object-cover"
+                unoptimized
+              />
+            </div>
+            <div className="space-y-6 text-[#d9d9d9]">
+              <div>
+                <h2 className="text-4xl font-bold uppercase tracking-[0.08em]">{profile?.name || 'josh cabradilla'}</h2>
+                <p className="mt-3 text-lg text-[#cccccc]">{profile?.title || 'aspiring front end engineer, fresh grad BSIT student'}</p>
+              </div>
+              <div className="space-y-4">
+                <p className="leading-8 text-[#d4d4d4]">
+                  {loading ? 'Loading profile details...' : profile?.bio || 'I build clean and polished user interfaces that feel modern and easy to use. My goal is to create meaningful digital experiences with strong visual design and fast performance.'}
+                </p>
+                <div className="rounded-3xl border border-white/10 bg-black/20 p-6">
+                  <p className="uppercase tracking-[0.3em] text-[#9f9f9f]">Education</p>
+                  <p className="mt-4 text-base leading-7 text-[#e8e8e8]">
+                    {profile?.education || 'Graduated as BSIT - Bachelor of Science in Information Technology at PCLU (Polytechnic College of La Union)'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div className="bg-transparent w-full min-w-screen h-auto absolute top-[60%] left-[20%] animate-zoom-in">
-          <span className="font-quicksand font-bold uppercase text-2xl">education</span>
-          <small className="text-text-light absolute top-[130%] left-[5%] font-quicksand font-bold no-underline leading-[1.5] text-center">
-            {profile?.education || 'Graduated as BSIT - Bachelor of Science in Information Technology at PCLU (Polytechnic College of La Union)'}
-          </small>
-        </div>
-
-        <div className="bg-transparent w-full min-w-screen h-auto absolute top-[80%] left-[20%] animate-zoom-in">
-          <span className="font-quicksand font-bold uppercase text-2xl text-text-light absolute top-[-50px]">
-            other interests
-          </span>
-          <ul className="flex flex-col items-start gap-1 p-0 mt-[-20px] list-none max-h-[180px] overflow-y-auto">
-            {(profile?.interests || ['music', 'photography', 'gaming (valorant)', 'coding', 'physical activities like going to gym']).map((interest, index) => (
-              <li 
-                key={index}
-                className="text-xs text-text-light font-quicksand font-bold capitalize bg-black/20 py-2.5 px-6 rounded-[20px] shadow-[0_2px_8px_rgba(0,0,0,0.1)] transition-all text-left w-fit cursor-pointer hover:bg-header hover:text-text-dark hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)]"
-              >
+        <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <span className="text-sm uppercase tracking-[0.4em] text-[#9f9f9f]">Interests</span>
+              <h2 className="mt-4 text-3xl font-bold uppercase tracking-[0.08em]">What I enjoy</h2>
+            </div>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {interests.map((interest, index) => (
+              <span key={index} className="rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm text-text-light transition hover:border-white/20 hover:bg-white/10">
                 {interest}
-              </li>
+              </span>
             ))}
-          </ul>
-        </div>
+          </div>
+        </section>
       </main>
     </div>
   )

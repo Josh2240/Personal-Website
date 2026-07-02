@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost/api'
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -8,7 +10,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost/api/:path*',
+        destination: `${apiUrl}/:path*`,
       },
     ];
   },

@@ -224,7 +224,3 @@ For production:
 ## 📄 License
 
 Personal project - use as you wish!
-=======
-# Personal-Website
-Personal Website for fresh graduate Bachelor of Science in Information Technology
->>>>>>> 87f8b62e19511ecaf2bacf2736d87f47e7cdef61

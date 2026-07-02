@@ -1,10 +1,11 @@
 export default function Header() {
   return (
-    <header className="bg-transparent w-full min-w-screen h-[90px] fixed flex items-center justify-center">
-      <span className="text-text-light font-quicksand font-bold uppercase absolute top-[20%] left-[5%] animate-zoom-in">
-        personal website
-      </span>
-      <div className="bg-header w-full min-w-screen h-[3px] absolute top-[60%] left-0 shadow-[0_0_10px_#f3f3f3f3]"></div>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/30 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-10">
+        <span className="text-base font-bold uppercase tracking-[0.3em] text-text-light">personal website</span>
+        <div className="hidden md:block h-px flex-1 bg-white/10 mx-6"></div>
+        <span className="text-sm uppercase tracking-[0.4em] text-[#aaaaaa]">josh cabradilla</span>
+      </div>
     </header>
   )
 }

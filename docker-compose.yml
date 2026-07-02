@@ -1,0 +1,53 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: personal_website_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${DB_NAME:-personal_website}
+      MYSQL_USER: ${DB_USER:-website_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-website_password}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  php:
+    image: php:8.2-apache
+    container_name: personal_website_php
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:80"
+    volumes:
+      - ./php:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_USER: ${DB_USER:-website_user}
+      DB_PASS: ${DB_PASSWORD:-website_password}
+      DB_NAME: ${DB_NAME:-personal_website}
+
+  frontend:
+    build: .
+    container_name: personal_website_frontend
+    restart: always
+    depends_on:
+      - php
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://php/api}
+    command: ["npm", "run", "dev", "--", "--hostname", "0.0.0.0"]
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  db_data:

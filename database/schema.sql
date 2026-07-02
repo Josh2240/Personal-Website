@@ -1,7 +1,6 @@
 -- Database schema for Personal Website
--- Run this in phpMyAdmin or MySQL command line
+-- This file is automatically run when Docker initializes MySQL
 
-CREATE DATABASE IF NOT EXISTS personal_website;
 USE personal_website;
 
 -- Projects table
@@ -14,7 +13,7 @@ CREATE TABLE IF NOT EXISTS projects (
     technologies VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Socials table
 CREATE TABLE IF NOT EXISTS socials (
@@ -24,7 +23,7 @@ CREATE TABLE IF NOT EXISTS socials (
     icon VARCHAR(500),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Profile table
 CREATE TABLE IF NOT EXISTS profile (
@@ -34,23 +33,22 @@ CREATE TABLE IF NOT EXISTS profile (
     bio TEXT,
     education TEXT,
     profile_image VARCHAR(500),
-    interests TEXT,
+    interests JSON,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Insert default profile
-INSERT INTO profile (name, title, bio, education, profile_image, interests) 
+-- Seed data
+INSERT INTO profile (name, title, bio, education, profile_image, interests)
 VALUES (
     'josh cabradilla',
     'aspiring front end engineer, fresh grad BSIT student',
     'aspiring front end engineer, fresh grad BSIT student',
     'Graduated as BSIT - Bachelor of Science in Information Technology at PCLU (Polytechnic College of La Union)',
     'assets/a7c37f61-b29a-4304-920a-ce40bda43034.jpg',
-    '["music", "photography", "gaming (valorant)", "coding", "physical activities like going to gym"]'
+    JSON_ARRAY('music', 'photography', 'gaming (valorant)', 'coding', 'physical activities like going to gym')
 );
 
--- Insert default socials
 INSERT INTO socials (platform, url, icon) VALUES
 ('github', 'https://github.com/Josh2240', 'assets/github.png'),
 ('instagram', 'https://www.instagram.com/enji_adachi/', 'assets/instagram.png'),

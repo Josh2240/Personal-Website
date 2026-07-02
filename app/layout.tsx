@@ -9,8 +9,9 @@ const quicksand = Quicksand({
 })
 
 export const metadata: Metadata = {
-  title: 'Personal Website',
-  description: 'Personal website portfolio',
+  title: 'Josh Cabradilla | Front End Portfolio',
+  description: 'Portfolio website for Josh Cabradilla, showcasing modern web projects, profile details, and social connections.',
+  metadataBase: new URL('https://yourdomain.example'),
 }
 
 export default function RootLayout({
