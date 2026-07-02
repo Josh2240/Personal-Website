@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Personal Website - Full Stack with Next.js, Tailwind CSS & PHP/MySQL
 
 A modern full stack personal website built with Next.js, Tailwind CSS frontend and PHP/MySQL backend for XAMPP.
@@ -223,3 +224,7 @@ For production:
 ## 📄 License
 
 Personal project - use as you wish!
+=======
+# Personal-Website
+Personal Website for fresh graduate Bachelor of Science in Information Technology
+>>>>>>> 87f8b62e19511ecaf2bacf2736d87f47e7cdef61
