@@ -22,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/x-icon" href="/assets/r.ico" />
       </head>
       <body className={`${quicksand.variable} font-sans`}>{children}</body>

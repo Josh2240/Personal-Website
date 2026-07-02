@@ -4,6 +4,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
+:root {
+  color-scheme: dark;
+  font-family: 'Quicksand', sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,32 +18,57 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   min-height: 100vh;
+  width: 100%;
   color: #e5e7eb;
   background: radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 25%), linear-gradient(180deg, #020202 0%, #060606 100%);
   font-size: 16px;
   line-height: 1.6;
   overflow-x: hidden;
-  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body, button, input, textarea, select {
-  font-family: 'Quicksand', sans-serif;
+body,
+button,
+input,
+textarea,
+select,
+a {
+  font-family: inherit;
 }
 
-button, a {
+button,
+a {
   transition: all 0.25s ease;
 }
 
-img {
+img,
+svg {
   display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 ::selection {
   background: rgba(255, 255, 255, 0.15);
   color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  :root {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 14px;
+  }
 }
 
