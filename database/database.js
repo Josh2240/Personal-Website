@@ -1,4 +1,6 @@
 const Database = require('better-sqlite3');
+const bcrypt = require('bcryptjs');
+const speakeasy = require('speakeasy');
 const path = require('path');
 
 const dbPath = path.join(__dirname, 'database.db');
@@ -50,6 +52,19 @@ function initDatabase() {
         )
     `);
 
+    // Users table for authentication and 2FA
+    db.exec(`
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL UNIQUE,
+            password_hash TEXT NOT NULL,
+            totp_secret TEXT,
+            is_2fa_enabled INTEGER DEFAULT 1,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
+
     // Insert default profile if it doesn't exist
     const profileExists = db.prepare('SELECT COUNT(*) as count FROM profile').get();
     if (profileExists.count === 0) {
@@ -77,6 +92,24 @@ function initDatabase() {
         insertSocial.run('github', 'https://github.com/Josh2240', 'assets/github.png');
         insertSocial.run('instagram', 'https://www.instagram.com/enji_adachi/', 'assets/instagram.png');
         insertSocial.run('facebook', 'https://www.facebook.com/joshua.cabradilla.946/', 'assets/facebook.png');
+    }
+
+    const adminUser = db.prepare('SELECT COUNT(*) as count FROM users WHERE username = ?').get('admin');
+    if (adminUser.count === 0) {
+        const adminPassword = process.env.ADMIN_PASSWORD || 'ChangeThisAdmin@123';
+        const passwordHash = bcrypt.hashSync(adminPassword, 10);
+        const totpSecret = process.env.ADMIN_TOTP_SECRET || speakeasy.generateSecret({ length: 20 }).base32;
+
+        db.prepare(`
+            INSERT INTO users (username, password_hash, totp_secret, is_2fa_enabled)
+            VALUES (?, ?, ?, ?)
+        `).run('admin', passwordHash, totpSecret, 1);
+
+        console.log('Seeded default admin user.');
+        console.log(`  Admin username: admin`);
+        console.log(`  Admin password: ${adminPassword}`);
+        console.log(`  2FA secret: ${totpSecret}`);
+        console.log('Set ADMIN_PASSWORD, ADMIN_TOTP_SECRET, and JWT_SECRET in .env for production deployments.');
     }
 
     console.log('Database initialized successfully');

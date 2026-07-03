@@ -17,6 +17,9 @@ app.use('/assets', express.static('assets'));
 
 // API Routes
 const apiRoutes = require('./routes/api');
+const { router: authRoutes } = require('./routes/auth');
+
+app.use('/api/auth', authRoutes);
 app.use('/api', apiRoutes);
 
 // Serve static HTML files

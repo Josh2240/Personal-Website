@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../database/database');
+const { authMiddleware } = require('./auth');
 
 // ============ PROJECTS ROUTES ============
 
@@ -28,7 +29,7 @@ router.get('/projects/:id', (req, res) => {
 });
 
 // Create project
-router.post('/projects', (req, res) => {
+router.post('/projects', authMiddleware, (req, res) => {
     try {
         const { title, description, link, image_url, technologies } = req.body;
         const result = db.prepare(`
@@ -44,7 +45,7 @@ router.post('/projects', (req, res) => {
 });
 
 // Update project
-router.put('/projects/:id', (req, res) => {
+router.put('/projects/:id', authMiddleware, (req, res) => {
     try {
         const { title, description, link, image_url, technologies } = req.body;
         const result = db.prepare(`
@@ -65,7 +66,7 @@ router.put('/projects/:id', (req, res) => {
 });
 
 // Delete project
-router.delete('/projects/:id', (req, res) => {
+router.delete('/projects/:id', authMiddleware, (req, res) => {
     try {
         const result = db.prepare('DELETE FROM projects WHERE id = ?').run(req.params.id);
         if (result.changes === 0) {
@@ -103,7 +104,7 @@ router.get('/socials/:id', (req, res) => {
 });
 
 // Create/Update social (upsert by platform)
-router.post('/socials', (req, res) => {
+router.post('/socials', authMiddleware, (req, res) => {
     try {
         const { platform, url, icon } = req.body;
         const existing = db.prepare('SELECT * FROM socials WHERE platform = ?').get(platform);
@@ -132,7 +133,7 @@ router.post('/socials', (req, res) => {
 });
 
 // Delete social
-router.delete('/socials/:id', (req, res) => {
+router.delete('/socials/:id', authMiddleware, (req, res) => {
     try {
         const result = db.prepare('DELETE FROM socials WHERE id = ?').run(req.params.id);
         if (result.changes === 0) {
@@ -164,7 +165,7 @@ router.get('/profile', (req, res) => {
 });
 
 // Update profile
-router.put('/profile', (req, res) => {
+router.put('/profile', authMiddleware, (req, res) => {
     try {
         const { name, title, bio, education, profile_image, interests } = req.body;
         const interestsJson = Array.isArray(interests) ? JSON.stringify(interests) : interests;

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Personal Website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-form {
+            max-width: 400px;
+            margin: 80px auto;
+            padding: 24px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+        .login-form h1 {
+            margin-bottom: 24px;
+            color: var(--text-light);
+        }
+        .login-form label,
+        .login-form input {
+            display: block;
+            width: 100%;
+        }
+        .login-form input {
+            margin-bottom: 16px;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.06);
+            color: var(--text-light);
+        }
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #7c3aed;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .login-form .message {
+            margin-top: 12px;
+            color: #f8f8f8;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <h1>Admin login</h1>
+        <label for="username">Username</label>
+        <input id="username" type="text" placeholder="admin" value="admin" autocomplete="off" />
+
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Password" autocomplete="current-password" />
+
+        <label for="token">2FA code</label>
+        <input id="token" type="text" placeholder="123456" autocomplete="one-time-code" />
+
+        <button id="loginBtn">Login</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        async function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const token = document.getElementById('token').value.trim();
+            const message = document.getElementById('message');
+
+            message.textContent = 'Signing in...';
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, token })
+                });
+                const result = await response.json();
+
+                if (!result.success) {
+                    message.textContent = result.error || 'Login failed';
+                    return;
+                }
+
+                if (result.requires2fa) {
+                    message.textContent = 'Enter your 2FA code and submit again.';
+                    return;
+                }
+
+                localStorage.setItem('authToken', result.token);
+                message.textContent = 'Logged in successfully. Token stored locally.';
+            } catch (error) {
+                message.textContent = 'Login error: ' + (error.message || 'Unknown');
+            }
+        }
+
+        document.getElementById('loginBtn').addEventListener('click', login);
+    </script>
+</body>
+</html>
