@@ -28,8 +28,7 @@ export default function Socials() {
 
   const fetchSocials = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost/api'
-      const response = await fetch(`${apiUrl}/socials.php`)
+      const response = await fetch('/api/socials')
       const result = await response.json()
       if (result.success && result.data) {
         setSocials(result.data)

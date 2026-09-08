@@ -16,8 +16,7 @@ export default function Home() {
 
   const fetchProfile = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost/api'
-      const response = await fetch(`${apiUrl}/profile.php`)
+      const response = await fetch('/api/profile')
       const result = await response.json()
       if (result.success && result.data) {
         setProfile(result.data)

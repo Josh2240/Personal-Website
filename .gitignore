@@ -36,6 +36,8 @@ next-env.d.ts
 # database
 *.db
 database/database.db
+backend/database.db
+backend/dist
 
 # IDE
 .vscode/

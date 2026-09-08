@@ -2,161 +2,96 @@
 
 ## 🚀 Quick Start
 
-### Part 1: Frontend (Next.js)
+### Prerequisites
 
-1. **Install dependencies:**
+- Node.js 20+ installed
+- npm or yarn
 
-   ```bash
-   npm install
-   ```
+### 1. Install Dependencies
 
-2. **Create environment file:**
-
-   ```bash
-   cp .env.local.example .env.local
-   ```
-
-   Edit `.env.local` and set your API URL:
-
-   ```edit
-   NEXT_PUBLIC_API_URL=http://localhost/api
-   ```
-
-3. **Run development server:**
-
-   ```bash
-   npm run dev
-   ```
-
-- Frontend will be at: `http://localhost:3000`
-
-### Part 2: Backend (XAMPP)
-
-1. **Install XAMPP** (if not installed)
-   - Download from: <https://www.apachefriends.org/>
-
-   - Install to default location: `C:\xampp\`
-
-2. **Copy PHP files to XAMPP:**
-   - Copy the `php` folder to `C:\xampp\htdocs\`
-   - Rename it to `api` (optional, but recommended)
-   - Result: `C:\xampp\htdocs\api\`
-
-3. **Copy assets:**
-   - Copy the `assets` folder to `C:\xampp\htdocs\`
-   - Result: `C:\xampp\htdocs\assets\`
-
-4. **Start XAMPP services:**
-   - Open XAMPP Control Panel
-   - Start **Apache**
-   - Start **MySQL**
-
-5. **Create database:**
-   - Open: `http://localhost/phpmyadmin`
-   - Click "New" → Database name: `personal_website` → Create
-   - Click on `personal_website` → Click "Import" tab
-   - Choose file: `database/schema.sql` from project root
-   - Click "Go"
-
-6. **Verify API:**
-   - Test: `http://localhost/api/api/profile.php`
-   - Should return JSON
-
-### Part 3: Configuration
-
-**If your PHP files are at `C:\xampp\htdocs\api\`:**
-
-- API URLs will be: `http://localhost/api/api/profile.php`
-- Update `.env.local`:
-
-  ```update
-  NEXT_PUBLIC_API_URL=http://localhost/api/api
-  ```
-
-**If you want cleaner URLs:**
-
-1. Move files from `php/api/` to `php/` directly
-2. Update `.env.local`.
-
-  ```file
-  NEXT_PUBLIC_API_URL=http://localhost/api
-  ```
-
-## 📁 Final Directory Structure
-
-- This final directory structure is to finalize the structure I made 2 months ago.
-
-### Project Root
-
-```project root
-.
-├── app/                    # Next.js pages
-├── components/             # React components
-├── php/                    # PHP backend
-│   ├── api/               # API endpoints
-│   └── config/            # Database config
-├── database/              # SQL schema
-├── public/                # Next.js public assets
-└── assets/                # Static assets (copy to XAMPP)
+```bash
+npm install
 ```
 
-### XAMPP htdocs
+### 2. Environment Configuration
 
-```htdocs
-C:\xampp\htdocs\
-├── api/                    # PHP backend
-│   ├── api/
-│   │   ├── profile.php
-│   │   ├── projects.php
-│   │   └── socials.php
-│   └── config/
-│       └── database.php
-└── assets/                 # Static assets
+```bash
+cp .env.example .env
+```
+
+Edit `.env` if needed. Default values work for local development.
+
+### 3. Run Development Servers
+
+```bash
+npm run dev
+```
+
+This starts both the Next.js frontend and Express backend:
+
+- **Frontend** at `http://localhost:3000`
+- **Backend API** at `http://localhost:3001`
+
+### 4. Verify Setup
+
+- Open `http://localhost:3000` in your browser
+- Test API: `http://localhost:3001/api/profile`
+- Should return JSON with profile data
+
+## 📁 Project Structure
+
+```structure
+.
+├── app/                    # Next.js App Router pages
+├── components/             # React components
+├── backend/
+│   └── src/
+│       ├── index.ts        # Express server
+│       ├── config/env.ts   # Environment config
+│       ├── db/index.ts     # SQLite setup
+│       ├── types/          # TypeScript interfaces
+│       ├── middleware/     # Auth middleware
+│       └── routes/         # API routes
+├── public/
+│   └── assets/             # Static assets
+├── database/
+│   └── schema.sql          # Legacy MySQL schema (reference)
+├── package.json
+├── tsconfig.json
+└── tailwind.config.js
 ```
 
 ## ✅ Verification Checklist
 
-- [ ] XAMPP Apache is running
-- [ ] XAMPP MySQL is running
-- [ ] Database `personal_website` exists
-- [ ] PHP files copied to `C:\xampp\htdocs\api\`
-- [ ] Assets copied to `C:\xampp\htdocs\assets\`
-- [ ] API test: `http://localhost/api/api/profile.php` returns JSON
-- [ ] Next.js dependencies installed (`npm install`)
-- [ ] `.env.local` configured
-- [ ] Next.js dev server running (`npm run dev`)
-- [ ] Frontend accessible at `http://localhost:3000`
+- [ ] Dependencies installed (`npm install`)
+- [ ] `.env` configured
+- [ ] Backend running at `http://localhost:3001`
+- [ ] Frontend running at `http://localhost:3000`
+- [ ] API test: `http://localhost:3001/api/profile` returns JSON
+- [ ] Homepage loads profile data correctly
 
 ## 🐛 Troubleshooting
 
+### Port Already in Use
+
+- Frontend defaults to port 3000
+- Backend defaults to port 3001
+- Change `PORT` and `API_PORT` in `.env`
+
+### Database Errors
+
+- The SQLite database is auto-created at `backend/database.db`
+- Delete the file to reset the database
+- Seed data is inserted on first run
+
 ### CORS Errors
 
-- Make sure `.htaccess` is in `C:\xampp\htdocs\api\`
-- Enable mod_headers in Apache (usually enabled)
-
-### Database Connection
-
-- Verify MySQL is running
-- Check credentials in `php/config/database.php`
-- Default: user=`root`, password=``
-
-### API 404
-
-- Check file paths match
-- Verify Apache is running
-- Check Apache error logs
-
-### Frontend Can't Connect
-
-- Verify API URL in `.env.local`
-- Check browser console for errors
-- Test API directly in browser
+- Backend has CORS enabled for all origins in development
+- In production, update `cors` options in `backend/src/index.ts`
 
 ## 🎯 Next Steps
 
-1. Customize content in database
-2. Add more projects via API
-3. Update profile information
+1. Customize profile in `backend/src/db/index.ts` seed data
+2. Add projects via the API or directly in the database
+3. Update styles in `tailwind.config.js` and `app/globals.css`
 4. Deploy to production when ready
-
-For detailed XAMPP setup, see `XAMPP_SETUP.md`

@@ -1,125 +1,83 @@
-# Quick Start Guide - Personal Website with Docker
+# Quick Start Guide
 
-## TL;DR (The Quickest Start)
-
-```powershell
-# Windows PowerShell
-npm install
-docker-compose up --build
-# Visit http://localhost:3000
-```
+## TL;DR
 
 ```bash
-# Linux/Mac
 npm install
-docker-compose up --build
+cp .env.example .env
+npm run dev
 # Visit http://localhost:3000
 ```
 
 ## What You Need
 
-- Docker Desktop installed: https://www.docker.com/products/docker-desktop
-- Node.js installed (for npm): https://nodejs.org/
+- Node.js 20+ installed
+- npm or yarn
 
 ## The Steps
 
-### 1. Install Node Modules
+### 1. Install Dependencies
+
 ```bash
 npm install
 ```
 
-### 2. Start Docker Containers
+### 2. Configure Environment
+
 ```bash
-docker-compose up --build
+cp .env.example .env
 ```
 
-This will:
-- Build your application image
-- Start MySQL database container
-- Initialize database with tables and default data
-- Start your application on port 3000
+Edit `.env` if needed. Defaults work for local development.
 
-### 3. Access Your App
-- **Website**: http://localhost:3000
-- **API Base**: http://localhost:3000/api
-- **Health Check**: http://localhost:3000/health
+### 3. Start Development Servers
 
-### 4. View Logs
 ```bash
-# All logs
-docker-compose logs -f
-
-# Just app logs
-docker-compose logs -f app
-
-# Just database logs
-docker-compose logs -f db
+npm run dev
 ```
 
-### 5. Stop When Done
-```bash
-docker-compose down
-```
+This starts:
+- **Frontend (Next.js)** at `http://localhost:3000`
+- **Backend (Express API)** at `http://localhost:3001`
 
-## Common Issues
+### 4. Verify
 
-**Q: "Port 3000 already in use"**
-A: Change in `.env`: `PORT=3001`
-
-**Q: "Docker not found"**
-A: Install Docker Desktop for your OS
-
-**Q: "Database connection failed"**
-A: Wait 10 seconds and try again, database is initializing
-
-**Q: "npm install fails"**
-A: Run `npm install` before `docker-compose up`
+- Visit `http://localhost:3000`
+- Test API: `curl http://localhost:3001/api/profile`
 
 ## Useful Commands
 
 | Command | What it does |
 |---------|-------------|
-| `docker-compose up -d` | Start in background |
-| `docker-compose down` | Stop all containers |
-| `docker-compose down -v` | Stop and delete data |
-| `docker-compose logs -f` | View live logs |
-| `docker-compose ps` | Show container status |
-| `docker-compose restart` | Restart containers |
-
-## Database Info
-
-```
-Host: localhost
-Port: 3306
-User: website_user
-Password: website_password
-Database: personal_website
-```
+| `npm run dev` | Start both frontend and backend |
+| `npm run dev:frontend` | Start only Next.js |
+| `npm run dev:backend` | Start only Express API |
+| `npm run build` | Build Next.js for production |
+| `npm start` | Start production (frontend + backend) |
 
 ## Testing API
 
 ```bash
 # Get profile
-curl http://localhost:3000/api/profile
+curl http://localhost:3001/api/profile
 
 # Get all projects
-curl http://localhost:3000/api/projects
+curl http://localhost:3001/api/projects
 
 # Get all socials
-curl http://localhost:3000/api/socials
+curl http://localhost:3001/api/socials
 
 # Health check
-curl http://localhost:3000/health
+curl http://localhost:3001/health
 ```
+
+## Default Admin Credentials
+
+- **Username**: `admin`
+- **Password**: `ChangeThisAdmin@123`
+- **2FA**: Enabled (see backend logs for TOTP secret)
 
 ## For More Info
 
-See these files:
-- **Full Setup Guide**: [DOCKER_SETUP.md](DOCKER_SETUP.md)
-- **Migration Details**: [DOCKER_MIGRATION_COMPLETE.md](DOCKER_MIGRATION_COMPLETE.md)
-- **Docker Compose Config**: [docker-compose.yml](docker-compose.yml)
-- **Environment Variables**: [.env](.env)
-
----
-
-**That's it!** Your app is now running on Docker! 🎉
+- **Full Setup**: [SETUP_GUIDE.md](SETUP_GUIDE.md)
+- **README**: [README.md](README.md)

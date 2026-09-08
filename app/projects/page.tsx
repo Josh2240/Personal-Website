@@ -39,8 +39,7 @@ export default function Projects() {
 
   const fetchProjects = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost/api'
-      const response = await fetch(`${apiUrl}/projects.php`)
+      const response = await fetch('/api/projects')
       const result = await response.json()
       if (result.success && result.data) {
         setProjects(result.data)

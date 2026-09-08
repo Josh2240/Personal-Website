@@ -1,10 +1,8 @@
-# Docker Setup Guide for Personal Website
-
-This guide will help you set up and run your Personal Website project using Docker and Docker Compose.
+# Docker Setup Guide
 
 ## Prerequisites
 
-- **Docker**: Download and install from [docker.com](https://www.docker.com/products/docker-desktop)
+- **Docker**: Download from [docker.com](https://www.docker.com/products/docker-desktop)
 - **Docker Compose**: Usually comes with Docker Desktop
 
 ### Verify Installation
@@ -16,72 +14,36 @@ docker-compose --version
 
 ## Quick Start
 
-### 1. Clone/Open Your Project
-
-Navigate to your project directory:
-```bash
-cd "C:\Users\Johua\Desktop\Personal Website"
-```
-
-### 2. Install Dependencies
+### 1. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Configure Environment Variables
+### 2. Configure Environment
 
-The `.env` file is already created with default values. You can customize it:
-
-```env
-# Docker and Application Configuration
-NODE_ENV=development
-PORT=3000
-
-# Database Configuration
-DB_HOST=db
-DB_PORT=3306
-DB_USER=website_user
-DB_PASSWORD=website_password
-DB_ROOT_PASSWORD=rootpassword
-DB_NAME=personal_website
+```bash
+cp .env.example .env
 ```
 
-### 4. Build and Start Docker Containers
+Edit `.env` if needed. Defaults work for local development.
+
+### 3. Build and Start
 
 ```bash
 docker-compose up --build
 ```
 
-This command will:
+This will:
 - Build the Node.js application Docker image
-- Start a MySQL database container
-- Start your application container
-- Wait for the database to be ready
-- Initialize the database with schema and default data
+- Start the application on port 3000
+- The SQLite database is auto-initialized on first run
 
-### 5. Access Your Application
+### 4. Access Your Application
 
 - **Application**: http://localhost:3000
-- **API**: http://localhost:3000/api
+- **API**: http://localhost:3000/api (proxied to backend)
 - **Health Check**: http://localhost:3000/health
-
-### 6. Database Access
-
-To access the MySQL database directly:
-
-```bash
-docker-compose exec db mysql -u website_user -p personal_website
-```
-
-When prompted for password, enter: `website_password`
-
-Or use a MySQL GUI client:
-- Host: `localhost`
-- Port: `3306`
-- User: `website_user`
-- Password: `website_password`
-- Database: `personal_website`
 
 ## Common Commands
 
@@ -91,9 +53,8 @@ Or use a MySQL GUI client:
 # All services
 docker-compose logs -f
 
-# Specific service
+# App logs only
 docker-compose logs -f app
-docker-compose logs -f db
 ```
 
 ### Stop Containers
@@ -121,64 +82,33 @@ docker-compose up --build
 docker-compose exec app sh
 ```
 
-### Access Database Shell
-
-```bash
-docker-compose exec db bash
-```
-
 ## Project Structure
 
 ```
 personal-website/
-├── database/
-│   ├── database.js          # MySQL connection pool
-│   └── schema.sql           # Database schema
-├── routes/
-│   └── api.js               # API endpoints
-├── php/                      # Legacy PHP files (optional)
-├── public/                   # Static files
-├── assets/                   # Images and static assets
-├── Dockerfile               # Application container config
-├── docker-compose.yml       # Multi-container orchestration
-├── .env                     # Environment variables
-├── .dockerignore            # Files to ignore in Docker build
+├── app/                    # Next.js App Router pages
+├── components/             # React components
+├── backend/
+│   └── src/                # Express TypeScript backend
+├── public/                 # Static files
+├── assets/                 # Images and static assets
+├── Dockerfile              # Application container config
+├── docker-compose.yml      # Multi-container orchestration
+├── .env                    # Environment variables
+├── .dockerignore           # Files to ignore in Docker build
 ├── package.json
-└── server.js
+└── tsconfig.json
 ```
 
-## Database Schema
+## Database
 
-The application uses MySQL with three main tables:
+The application uses **SQLite** via `better-sqlite3`. The database file persists in a Docker volume.
 
-### Projects Table
-- `id`: Auto-increment primary key
-- `title`: Project title
-- `description`: Project description
-- `link`: Project URL
-- `image_url`: Image URL
-- `technologies`: Technologies used
-- `created_at`: Creation timestamp
-- `updated_at`: Last update timestamp
-
-### Socials Table
-- `id`: Auto-increment primary key
-- `platform`: Social platform name (unique)
-- `url`: Social media URL
-- `icon`: Icon URL
-- `created_at`: Creation timestamp
-- `updated_at`: Last update timestamp
-
-### Profile Table
-- `id`: Auto-increment primary key
-- `name`: Profile name
-- `title`: Professional title
-- `bio`: Biography
-- `education`: Education details
-- `profile_image`: Profile image URL
-- `interests`: JSON array of interests
-- `created_at`: Creation timestamp
-- `updated_at`: Last update timestamp
+Tables:
+- `profile` - User profile data
+- `projects` - Portfolio projects
+- `socials` - Social media links
+- `users` - Authentication users
 
 ## API Endpoints
 
@@ -199,34 +129,26 @@ The application uses MySQL with three main tables:
 - `GET /api/profile` - Get profile
 - `PUT /api/profile` - Update profile
 
+### Auth
+- `POST /api/auth/login` - Login with 2FA
+- `GET /api/auth/me` - Get current user
+
 ## Troubleshooting
 
 ### Port Already in Use
 
-If port 3000 or 3306 is already in use, change them in `.env`:
+If port 3000 is already in use, change it in `.env`:
 ```env
 PORT=3001
-DB_PORT=3307
 ```
 
-### Database Connection Failed
+### Database Issues
 
+The SQLite database is stored in a Docker volume. To reset:
 ```bash
-# Check if database container is running
-docker-compose ps
-
-# View database logs
-docker-compose logs db
-
-# Restart database
-docker-compose restart db
+docker-compose down -v
+docker-compose up --build
 ```
-
-### Application Can't Connect to Database
-
-- Ensure database service name is `db` (not `localhost`)
-- Check that `.env` has correct database credentials
-- Verify health check passes: `docker-compose ps`
 
 ### Build Failures
 
@@ -237,31 +159,21 @@ docker system prune -a
 docker-compose up --build
 ```
 
-## Performance Tips
-
-1. **Volumes**: Database data persists in named volume `db_data`
-2. **Health Checks**: Database includes health checks to ensure readiness
-3. **Connection Pool**: Node.js uses connection pooling (max 10 connections)
-4. **Image Size**: Using Alpine Linux for smaller image size
-
 ## Security Notes
 
 - Change default passwords in `.env` for production
-- Use environment variables for sensitive data (never hardcode)
-- Database root user should have a strong password
+- Use environment variables for sensitive data
 - Implement authentication for API endpoints in production
 - Use HTTPS in production
 
 ## Next Steps
 
 1. Customize `.env` with your own values for production
-2. Add authentication middleware to API routes
+2. Add authentication middleware to protected API routes
 3. Configure CORS for your domain
-4. Set up CI/CD pipeline with Docker
-5. Deploy to production using Docker Swarm or Kubernetes
+4. Deploy to production using Docker
 
 ## Support
 
 For Docker documentation: https://docs.docker.com/
 For Docker Compose: https://docs.docker.com/compose/
-For MySQL: https://dev.mysql.com/doc/
