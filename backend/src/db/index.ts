@@ -119,6 +119,81 @@ export async function initDatabase(): Promise<DbInstance> {
     prepare('INSERT INTO socials (platform, url, icon) VALUES (?, ?, ?)').run('facebook', 'https://www.facebook.com/joshua.cabradilla.946/', 'assets/facebook.png')
   }
 
+  // Insert default projects if they don't exist
+  const projectsCount = prepare('SELECT COUNT(*) as count FROM projects').get() as { count: number } | undefined
+  if (!projectsCount || projectsCount.count === 0) {
+    prepare(`
+      INSERT INTO projects (title, description, link, image_url, technologies)
+      VALUES (?, ?, ?, ?, ?)
+    `).run(
+      'CIT Pageant Tabulation System',
+      'Tabulation system exclusive for College of Information Technology, used for judging candidates on IT Day.',
+      'https://github.com/Josh2240/CIT-Pageant-Tabulation-System',
+      'assets/projects/cit-pageant.svg',
+      'TypeScript'
+    )
+    prepare(`
+      INSERT INTO projects (title, description, link, image_url, technologies)
+      VALUES (?, ?, ?, ?, ?)
+    `).run(
+      'Ministry Volunteer Scheduler',
+      'Volunteer scheduling system for Coastlight Church, helpful for organizing meetings and service rotations.',
+      'https://github.com/Josh2240/Ministry-Volunteer-Scheduler',
+      'assets/projects/ministry-volunteer.svg',
+      'TypeScript'
+    )
+    prepare(`
+      INSERT INTO projects (title, description, link, image_url, technologies)
+      VALUES (?, ?, ?, ?, ?)
+    `).run(
+      'SSC Violation Auditing',
+      'Auditing system for tracking violations and violators.',
+      'https://github.com/Josh2240/SSC_Violation_Auditing',
+      'assets/projects/ssc-violation.svg',
+      'TypeScript'
+    )
+    prepare(`
+      INSERT INTO projects (title, description, link, image_url, technologies)
+      VALUES (?, ?, ?, ?, ?)
+    `).run(
+      'Singing Tabulation System',
+      'Tabulation system designed for vocal contestants.',
+      'https://github.com/Josh2240/Singing-Tabulation-System',
+      'assets/projects/singing-tabulation.svg',
+      'TypeScript'
+    )
+    prepare(`
+      INSERT INTO projects (title, description, link, image_url, technologies)
+      VALUES (?, ?, ?, ?, ?)
+    `).run(
+      'Dance Tabulation',
+      'Dance tabulation system for Polytechnic College of La Union.',
+      'https://github.com/Josh2240/Dance-Tabulation-',
+      'assets/projects/dance-tabulation.svg',
+      'TypeScript'
+    )
+    prepare(`
+      INSERT INTO projects (title, description, link, image_url, technologies)
+      VALUES (?, ?, ?, ?, ?)
+    `).run(
+      'Announcements & Suspension Alerts Dashboard',
+      'Dashboard for managing announcements and suspension alerts.',
+      'https://github.com/Josh2240/Announcements-Suspension-Alerts-Dashboard',
+      'assets/projects/announcements-alerts.svg',
+      'JavaScript'
+    )
+    prepare(`
+      INSERT INTO projects (title, description, link, image_url, technologies)
+      VALUES (?, ?, ?, ?, ?)
+    `).run(
+      'Student Billing System',
+      'Student billing and payment management system.',
+      'https://github.com/Josh2240/student-billing-system',
+      'assets/projects/student-billing.svg',
+      'TypeScript'
+    )
+  }
+
   // Seed default admin user
   const adminCount = prepare('SELECT COUNT(*) as count FROM users WHERE username = ?').get('admin') as { count: number } | undefined
   if (!adminCount || adminCount.count === 0) {

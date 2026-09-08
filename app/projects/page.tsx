@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import Header from '@/components/Header'
 import Navigation from '@/components/Navigation'
 
@@ -16,16 +17,59 @@ interface Project {
 const fallbackProjects: Project[] = [
   {
     id: 1,
-    title: 'Portfolio Redesign',
-    description: 'A polished showcase site with modern UI, clear navigation, and responsive layout.',
-    link: 'https://github.com/Josh2240',
-    technologies: 'Next.js, Tailwind CSS, React',
+    title: 'CIT Pageant Tabulation System',
+    description: 'Tabulation system exclusive for College of Information Technology, used for judging candidates on IT Day.',
+    link: 'https://github.com/Josh2240/CIT-Pageant-Tabulation-System',
+    image_url: '/assets/projects/cit-pageant.svg',
+    technologies: 'TypeScript',
   },
   {
     id: 2,
-    title: 'Interactive Profile',
-    description: 'A profile page with dynamic content loading and a clean presentation layer.',
-    technologies: 'JavaScript, PHP, MySQL',
+    title: 'Ministry Volunteer Scheduler',
+    description: 'Volunteer scheduling system for Coastlight Church, helpful for organizing meetings and service rotations.',
+    link: 'https://github.com/Josh2240/Ministry-Volunteer-Scheduler',
+    image_url: '/assets/projects/ministry-volunteer.svg',
+    technologies: 'TypeScript',
+  },
+  {
+    id: 3,
+    title: 'SSC Violation Auditing',
+    description: 'Auditing system for tracking violations and violators.',
+    link: 'https://github.com/Josh2240/SSC_Violation_Auditing',
+    image_url: '/assets/projects/ssc-violation.svg',
+    technologies: 'TypeScript',
+  },
+  {
+    id: 4,
+    title: 'Singing Tabulation System',
+    description: 'Tabulation system designed for vocal contestants.',
+    link: 'https://github.com/Josh2240/Singing-Tabulation-System',
+    image_url: '/assets/projects/singing-tabulation.svg',
+    technologies: 'TypeScript',
+  },
+  {
+    id: 5,
+    title: 'Dance Tabulation',
+    description: 'Dance tabulation system for Polytechnic College of La Union.',
+    link: 'https://github.com/Josh2240/Dance-Tabulation-',
+    image_url: '/assets/projects/dance-tabulation.svg',
+    technologies: 'TypeScript',
+  },
+  {
+    id: 6,
+    title: 'Announcements & Suspension Alerts Dashboard',
+    description: 'Dashboard for managing announcements and suspension alerts.',
+    link: 'https://github.com/Josh2240/Announcements-Suspension-Alerts-Dashboard',
+    image_url: '/assets/projects/announcements-alerts.svg',
+    technologies: 'JavaScript',
+  },
+  {
+    id: 7,
+    title: 'Student Billing System',
+    description: 'Student billing and payment management system.',
+    link: 'https://github.com/Josh2240/student-billing-system',
+    image_url: '/assets/projects/student-billing.svg',
+    technologies: 'TypeScript',
   },
 ]
 
@@ -78,17 +122,39 @@ export default function Projects() {
         ) : (
           <div className="grid gap-8 md:grid-cols-2">
             {projects.map((project) => (
-              <article key={project.id} className="rounded-[28px] border border-white/10 bg-white/5 p-8 shadow-[0_25px_80px_rgba(0,0,0,0.35)] transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10">
-                <div className="flex items-center justify-between gap-4">
-                  <h2 className="text-2xl font-bold">{project.title}</h2>
-                  {project.link && (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm uppercase tracking-[0.2em] text-[#9f9f9f] transition hover:text-text-light">
-                      Visit
-                    </a>
-                  )}
-                </div>
-                <p className="mt-4 text-base leading-7 text-[#d4d4d4]">{project.description || 'A well-crafted project that demonstrates clean UI and strong responsive behavior.'}</p>
-                <p className="mt-6 text-sm text-[#9f9f9f] uppercase tracking-[0.2em]">{project.technologies || 'HTML, CSS, JavaScript'}</p>
+              <article key={project.id} className="rounded-[28px] border border-white/10 bg-white/5 shadow-[0_25px_80px_rgba(0,0,0,0.35)] transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 overflow-hidden">
+                {project.link ? (
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="block">
+                    {project.image_url && (
+                      <div className="relative h-40 w-full bg-black/20">
+                        <Image src={project.image_url} alt={project.title} fill className="object-contain p-6" unoptimized />
+                      </div>
+                    )}
+                    <div className="p-8">
+                      <div className="flex items-center justify-between gap-4">
+                        <h2 className="text-2xl font-bold">{project.title}</h2>
+                        <span className="text-sm uppercase tracking-[0.2em] text-[#9f9f9f] transition hover:text-text-light">Visit</span>
+                      </div>
+                      <p className="mt-4 text-base leading-7 text-[#d4d4d4]">{project.description || 'A well-crafted project that demonstrates clean UI and strong responsive behavior.'}</p>
+                      <p className="mt-6 text-sm text-[#9f9f9f] uppercase tracking-[0.2em]">{project.technologies || 'HTML, CSS, JavaScript'}</p>
+                    </div>
+                  </a>
+                ) : (
+                  <>
+                    {project.image_url && (
+                      <div className="relative h-40 w-full bg-black/20">
+                        <Image src={project.image_url} alt={project.title} fill className="object-contain p-6" unoptimized />
+                      </div>
+                    )}
+                    <div className="p-8">
+                      <div className="flex items-center justify-between gap-4">
+                        <h2 className="text-2xl font-bold">{project.title}</h2>
+                      </div>
+                      <p className="mt-4 text-base leading-7 text-[#d4d4d4]">{project.description || 'A well-crafted project that demonstrates clean UI and strong responsive behavior.'}</p>
+                      <p className="mt-6 text-sm text-[#9f9f9f] uppercase tracking-[0.2em]">{project.technologies || 'HTML, CSS, JavaScript'}</p>
+                    </div>
+                  </>
+                )}
               </article>
             ))}
           </div>
