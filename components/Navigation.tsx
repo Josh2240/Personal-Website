@@ -1,17 +1,26 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 
 const navItems = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/socials', label: 'Socials' },
-  { href: '/projects', label: 'Projects' },
+  { href: '#home', label: 'Home' },
+  { href: '#about', label: 'About' },
+  { href: '#socials', label: 'Socials' },
+  { href: '#projects', label: 'Projects' },
 ]
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    setIsOpen(false)
+    const targetId = href.replace('#', '')
+    const target = document.getElementById(targetId)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <nav className="fixed right-5 top-5 z-[1000]">
@@ -36,13 +45,13 @@ export default function Navigation() {
         >
           {navItems.map((item) => (
             <li key={item.href} className="md:relative">
-              <Link
+              <a
                 href={item.href}
+                onClick={(e) => handleClick(e, item.href)}
                 className="block rounded-full px-3 py-2 text-xs sm:text-sm font-semibold text-text-light no-underline transition hover:text-white md:px-0 md:py-0"
-                onClick={() => setIsOpen(false)}
               >
                 {item.label}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
