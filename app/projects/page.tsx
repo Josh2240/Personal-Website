@@ -51,7 +51,7 @@ const fallbackProjects: Project[] = [
     id: 5,
     title: 'Dance Tabulation',
     description: 'Dance tabulation system for Polytechnic College of La Union.',
-    link: 'https://github.com/Josh2240/Dance-Tabulation-',
+    link: 'https://dance-tabulation.onrender.com/login',
     image_url: '/assets/projects/dance-tabulation.svg',
     technologies: 'TypeScript',
   },

@@ -168,7 +168,7 @@ export async function initDatabase(): Promise<DbInstance> {
     `).run(
       'Dance Tabulation',
       'Dance tabulation system for Polytechnic College of La Union.',
-      'https://github.com/Josh2240/Dance-Tabulation-',
+      'https://dance-tabulation.onrender.com/login',
       'assets/projects/dance-tabulation.svg',
       'TypeScript'
     )
