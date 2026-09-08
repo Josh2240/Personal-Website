@@ -5,29 +5,36 @@
 ### Part 1: Frontend (Next.js)
 
 1. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 2. **Create environment file:**
+
    ```bash
    cp .env.local.example .env.local
    ```
+
    Edit `.env.local` and set your API URL:
-   ```
+
+   ```edit
    NEXT_PUBLIC_API_URL=http://localhost/api
    ```
 
 3. **Run development server:**
+
    ```bash
    npm run dev
    ```
-   Frontend will be at: `http://localhost:3000`
+
+- Frontend will be at: `http://localhost:3000`
 
 ### Part 2: Backend (XAMPP)
 
 1. **Install XAMPP** (if not installed)
-   - Download from: https://www.apachefriends.org/
+   - Download from: <https://www.apachefriends.org/>
+
    - Install to default location: `C:\xampp\`
 
 2. **Copy PHP files to XAMPP:**
@@ -58,23 +65,30 @@
 ### Part 3: Configuration
 
 **If your PHP files are at `C:\xampp\htdocs\api\`:**
+
 - API URLs will be: `http://localhost/api/api/profile.php`
 - Update `.env.local`:
-  ```
+
+  ```update
   NEXT_PUBLIC_API_URL=http://localhost/api/api
   ```
 
 **If you want cleaner URLs:**
+
 1. Move files from `php/api/` to `php/` directly
-2. Update `.env.local`:
-  ```
+2. Update `.env.local`.
+
+  ```file
   NEXT_PUBLIC_API_URL=http://localhost/api
   ```
 
 ## 📁 Final Directory Structure
 
+- This final directory structure is to finalize the structure I made 2 months ago.
+
 ### Project Root
-```
+
+```project root
 .
 ├── app/                    # Next.js pages
 ├── components/             # React components
@@ -87,7 +101,8 @@
 ```
 
 ### XAMPP htdocs
-```
+
+```htdocs
 C:\xampp\htdocs\
 ├── api/                    # PHP backend
 │   ├── api/
@@ -115,20 +130,24 @@ C:\xampp\htdocs\
 ## 🐛 Troubleshooting
 
 ### CORS Errors
+
 - Make sure `.htaccess` is in `C:\xampp\htdocs\api\`
 - Enable mod_headers in Apache (usually enabled)
 
 ### Database Connection
+
 - Verify MySQL is running
 - Check credentials in `php/config/database.php`
 - Default: user=`root`, password=``
 
 ### API 404
+
 - Check file paths match
 - Verify Apache is running
 - Check Apache error logs
 
 ### Frontend Can't Connect
+
 - Verify API URL in `.env.local`
 - Check browser console for errors
 - Test API directly in browser
@@ -141,4 +160,3 @@ C:\xampp\htdocs\
 4. Deploy to production when ready
 
 For detailed XAMPP setup, see `XAMPP_SETUP.md`
-
