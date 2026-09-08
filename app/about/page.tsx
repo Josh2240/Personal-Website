@@ -42,32 +42,32 @@ export default function About() {
     <div className="w-full min-h-screen bg-background text-text-light overflow-hidden">
       <Header />
       <Navigation />
-      <main className="relative mx-auto flex min-h-screen max-w-6xl flex-col gap-10 sm:gap-14 px-4 py-24 sm:px-6 lg:px-10 w-full">
-        <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+      <main className="relative mx-auto flex min-h-screen max-w-6xl flex-col gap-8 sm:gap-10 px-4 py-24 sm:px-6 lg:px-10 w-full">
+        <section className="rounded-[32px] border border-white/10 bg-white/5 p-6 sm:p-8 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-xl">
           <span className="text-sm uppercase tracking-[0.4em] text-[#9f9f9f]">About Me</span>
-          <div className="mt-8 grid gap-10 lg:grid-cols-[320px_minmax(0,1fr)] items-start">
-            <div className="overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-5 shadow-lg shadow-black/20">
+          <div className="mt-8 grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)] items-start">
+            <div className="overflow-hidden rounded-[24px] border border-white/10 bg-white/5 p-3 sm:p-5 shadow-lg shadow-black/20">
               <Image
                 src={profile?.profile_image || '/assets/a7c37f61-b29a-4304-920a-ce40bda43034.jpg'}
                 alt={profile?.name || 'Profile'}
                 width={320}
                 height={320}
-                className="h-full w-full rounded-[24px] object-cover"
+                className="h-auto w-full rounded-[20px] object-cover"
                 unoptimized
               />
             </div>
-            <div className="space-y-6 text-[#d9d9d9]">
+            <div className="space-y-5 text-[#d9d9d9]">
               <div>
-                <h2 className="text-4xl font-bold uppercase tracking-[0.08em]">{profile?.name || 'josh cabradilla'}</h2>
-                <p className="mt-3 text-lg text-[#cccccc]">{profile?.title || 'aspiring front end engineer, fresh grad BSIT student'}</p>
+                <h2 className="text-2xl sm:text-4xl font-bold uppercase tracking-[0.08em]">{profile?.name || 'josh cabradilla'}</h2>
+                <p className="mt-3 text-base sm:text-lg text-[#cccccc]">{profile?.title || 'aspiring front end engineer, fresh grad BSIT student'}</p>
               </div>
               <div className="space-y-4">
-                <p className="leading-8 text-[#d4d4d4]">
+                <p className="leading-7 sm:leading-8 text-[#d4d4d4] text-sm sm:text-base">
                   {loading ? 'Loading profile details...' : profile?.bio || 'I build clean and polished user interfaces that feel modern and easy to use. My goal is to create meaningful digital experiences with strong visual design and fast performance.'}
                 </p>
-                <div className="rounded-3xl border border-white/10 bg-black/20 p-6">
-                  <p className="uppercase tracking-[0.3em] text-[#9f9f9f]">Education</p>
-                  <p className="mt-4 text-base leading-7 text-[#e8e8e8]">
+                <div className="rounded-3xl border border-white/10 bg-black/20 p-5 sm:p-6">
+                  <p className="uppercase tracking-[0.3em] text-[#9f9f9f] text-xs sm:text-sm">Education</p>
+                  <p className="mt-4 text-sm sm:text-base leading-7 text-[#e8e8e8]">
                     {profile?.education || 'Graduated as BSIT - Bachelor of Science in Information Technology at PCLU (Polytechnic College of La Union)'}
                   </p>
                 </div>
@@ -76,16 +76,16 @@ export default function About() {
           </div>
         </section>
 
-        <section className="rounded-[32px] border border-white/10 bg-white/5 p-8 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+        <section className="rounded-[32px] border border-white/10 bg-white/5 p-6 sm:p-8 shadow-[0_30px_100px_rgba(0,0,0,0.45)] backdrop-blur-xl">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <span className="text-sm uppercase tracking-[0.4em] text-[#9f9f9f]">Interests</span>
-              <h2 className="mt-4 text-3xl font-bold uppercase tracking-[0.08em]">What I enjoy</h2>
+              <h2 className="mt-4 text-2xl sm:text-3xl font-bold uppercase tracking-[0.08em]">What I enjoy</h2>
             </div>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-3">
             {interests.map((interest, index) => (
-              <span key={index} className="rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm text-text-light transition hover:border-white/20 hover:bg-white/10">
+              <span key={index} className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs sm:text-sm text-text-light transition hover:border-white/20 hover:bg-white/10">
                 {interest}
               </span>
             ))}
