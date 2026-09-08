@@ -32,7 +32,7 @@ export default function Navigation() {
         <ul
           className={`absolute right-0 top-full mt-3 w-44 origin-top-right rounded-3xl border border-white/10 bg-black/90 p-3 backdrop-blur-xl shadow-xl transition-all duration-300 md:static md:mt-0 md:w-auto md:bg-transparent md:border-0 md:p-0 md:shadow-none ${
             isOpen ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
-          } md:opacity-100 md:pointer-events-auto md:flex md:flex-row md:items-center md:gap-6`}
+          } md:opacity-100 md:pointer-events-auto md:flex md:flex-row md:items-center md:gap-4 lg:gap-6`}
         >
           {navItems.map((item) => (
             <li key={item.href} className="md:relative">

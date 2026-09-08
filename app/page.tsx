@@ -37,9 +37,9 @@ export default function Home() {
       <Header />
       <Navigation />
       <main className="relative flex min-h-screen items-center justify-center px-4 py-20 sm:px-6 w-full">
-        <div className="relative w-full max-w-4xl rounded-[32px] border border-white/10 bg-white/5 p-6 sm:p-10 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+        <div className="relative w-full max-w-4xl rounded-[32px] border border-white/10 bg-white/5 p-6 sm:p-8 md:p-10 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl">
           <span className="text-xs uppercase tracking-[0.4em] text-[#9f9f9f]">front end portfolio</span>
-          <h1 className="mt-6 text-3xl font-bold uppercase leading-tight tracking-[0.08em] sm:text-5xl md:text-6xl">
+          <h1 className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase leading-tight tracking-[0.06em] sm:tracking-[0.08em]">
             Hi, I&apos;m {name}
           </h1>
           <p className="mt-6 max-w-3xl text-sm leading-7 text-[#cccccc] sm:text-base sm:leading-8">
@@ -58,15 +58,15 @@ export default function Home() {
           <div className="mt-12 grid gap-4 sm:grid-cols-3">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left shadow-lg shadow-black/20">
               <p className="text-xs uppercase tracking-[0.25em] text-[#9f9f9f]">Experience</p>
-              <p className="mt-4 text-lg font-bold sm:text-xl">Front-End Design</p>
+              <p className="mt-4 text-lg sm:text-xl font-bold">Front-End Design</p>
             </div>
             <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left shadow-lg shadow-black/20">
               <p className="text-xs uppercase tracking-[0.25em] text-[#9f9f9f]">Focus</p>
-              <p className="mt-4 text-lg font-bold sm:text-xl">Modern, clean UI</p>
+              <p className="mt-4 text-lg sm:text-xl font-bold">Modern, clean UI</p>
             </div>
             <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left shadow-lg shadow-black/20">
               <p className="text-xs uppercase tracking-[0.25em] text-[#9f9f9f]">Goal</p>
-              <p className="mt-4 text-lg font-bold sm:text-xl">Deliver polished experiences</p>
+              <p className="mt-4 text-lg sm:text-xl font-bold">Deliver polished experiences</p>
             </div>
           </div>
 

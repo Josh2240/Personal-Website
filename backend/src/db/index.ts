@@ -128,7 +128,7 @@ export async function initDatabase(): Promise<DbInstance> {
     `).run(
       'CIT Pageant Tabulation System',
       'Tabulation system exclusive for College of Information Technology, used for judging candidates on IT Day.',
-      'https://github.com/Josh2240/CIT-Pageant-Tabulation-System',
+      'https://cit-pageant-tabulation-system.onrender.com/login',
       'assets/projects/cit-pageant.svg',
       'TypeScript'
     )
@@ -178,7 +178,7 @@ export async function initDatabase(): Promise<DbInstance> {
     `).run(
       'Announcements & Suspension Alerts Dashboard',
       'Dashboard for managing announcements and suspension alerts.',
-      'https://github.com/Josh2240/Announcements-Suspension-Alerts-Dashboard',
+      'https://announcements-suspension-alerts-dashboard.onrender.com/',
       'assets/projects/announcements-alerts.svg',
       'JavaScript'
     )
