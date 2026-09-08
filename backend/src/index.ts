@@ -41,9 +41,9 @@ async function start() {
   try {
     await initDatabase()
 
-    app.listen(env.PORT, () => {
-      console.log(`Backend API server running on http://localhost:${env.PORT}`)
-      console.log(`API available at http://localhost:${env.PORT}/api`)
+    app.listen(env.API_PORT, () => {
+      console.log(`Backend API server running on http://localhost:${env.API_PORT}`)
+      console.log(`API available at http://localhost:${env.API_PORT}/api`)
     })
   } catch (error) {
     console.error('Failed to start server:', error)
