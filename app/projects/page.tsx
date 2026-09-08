@@ -35,7 +35,7 @@ const fallbackProjects: Project[] = [
     id: 3,
     title: 'SSC Violation Auditing',
     description: 'Auditing system for tracking violations and violators.',
-    link: 'https://github.com/Josh2240/SSC_Violation_Auditing',
+    link: 'https://ssc-violation-auditing-six.vercel.app/login',
     image_url: '/assets/projects/ssc-violation.svg',
     technologies: 'TypeScript',
   },

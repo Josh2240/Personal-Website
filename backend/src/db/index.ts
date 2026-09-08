@@ -148,7 +148,7 @@ export async function initDatabase(): Promise<DbInstance> {
     `).run(
       'SSC Violation Auditing',
       'Auditing system for tracking violations and violators.',
-      'https://github.com/Josh2240/SSC_Violation_Auditing',
+      'https://ssc-violation-auditing-six.vercel.app/login',
       'assets/projects/ssc-violation.svg',
       'TypeScript'
     )
