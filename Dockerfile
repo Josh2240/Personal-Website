@@ -1,4 +1,6 @@
-FROM node:20-alpine AS builder
+FROM node:22-bookworm-slim AS builder
+
+RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -10,7 +12,9 @@ COPY . .
 RUN npm run build
 RUN npm run build:backend
 
-FROM node:20-alpine
+FROM node:22-bookworm-slim
+
+RUN apt-get update && apt-get upgrade -y --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 

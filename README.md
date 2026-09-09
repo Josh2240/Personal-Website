@@ -5,12 +5,14 @@ A modern full stack personal website built with Next.js, React, TypeScript, Tail
 ## 🚀 Tech Stack
 
 ### Frontend
+
 - **Next.js 14** - React framework with App Router
 - **React 18** - UI library
 - **TypeScript** - Type-safe JavaScript
 - **Tailwind CSS** - Utility-first CSS framework
 
 ### Backend
+
 - **Express** - Node.js web framework
 - **TypeScript** - Type-safe backend
 - **SQLite** - Embedded database via better-sqlite3
@@ -19,7 +21,7 @@ A modern full stack personal website built with Next.js, React, TypeScript, Tail
 
 ## 📁 Project Structure
 
-```
+```structure
 .
 ├── app/                    # Next.js App Router pages
 │   ├── layout.tsx          # Root layout
@@ -57,6 +59,7 @@ A modern full stack personal website built with Next.js, React, TypeScript, Tail
 ## 🛠️ Setup Instructions
 
 ### Prerequisites
+
 - Node.js 20+ installed
 - Git (optional)
 
@@ -84,8 +87,9 @@ npm run dev
 ```
 
 This starts:
-- **Frontend** at `http://localhost:3000`
-- **Backend API** at `http://localhost:3001`
+
+- Frontend at `http://localhost:3000`
+- Backend API at `http://localhost:3001`
 
 ### 4. Build for Production
 
@@ -102,10 +106,12 @@ npm start
 All endpoints return JSON with `{success: boolean, data?: object, error?: string}` format.
 
 ### Profile
+
 - `GET /api/profile` - Get profile information
 - `PUT /api/profile` - Update profile
 
 ### Projects
+
 - `GET /api/projects` - Get all projects
 - `GET /api/projects/:id` - Get single project
 - `POST /api/projects` - Create project (auth required)
@@ -113,12 +119,14 @@ All endpoints return JSON with `{success: boolean, data?: object, error?: string
 - `DELETE /api/projects/:id` - Delete project (auth required)
 
 ### Socials
+
 - `GET /api/socials` - Get all social links
 - `GET /api/socials/:id` - Get single social
 - `POST /api/socials` - Create/Update social (auth required)
 - `DELETE /api/socials/:id` - Delete social (auth required)
 
 ### Authentication
+
 - `POST /api/auth/login` - Login with username/password (2FA supported)
 - `GET /api/auth/me` - Get current user (auth required)
 
@@ -150,12 +158,14 @@ All endpoints return JSON with `{success: boolean, data?: object, error?: string
 ### Database
 
 The SQLite database is auto-initialized when the backend starts. It creates:
+
 - `projects` table
 - `socials` table
 - `profile` table
 - `users` table (for auth)
 
 Default seed data includes:
+
 - Profile for Josh Cabradilla
 - Social links (GitHub, Instagram, Facebook)
 - Admin user (username: `admin`)
@@ -163,6 +173,7 @@ Default seed data includes:
 ## 🔒 Security Notes
 
 For production:
+
 - Change `JWT_SECRET` and `ADMIN_PASSWORD` in `.env`
 - Set strong secrets via environment variables
 - Enable HTTPS
@@ -182,11 +193,13 @@ The database persists via Docker volume.
 
 ## 📦 Deployment
 
-### Frontend
+### Frontend Deployment
+
 - Deploy to Vercel, Netlify, or any Node.js hosting
 - Ensure the backend API is accessible
 
-### Backend
+### Backend Deployment
+
 - Deploy the Express API to any Node.js hosting (Railway, Render, Fly.io, etc.)
 - The SQLite database file persists on disk
 

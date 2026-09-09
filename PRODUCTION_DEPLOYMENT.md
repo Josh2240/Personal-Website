@@ -29,11 +29,13 @@ ADMIN_PASSWORD=your_strong_admin_password_here
 ### 2. Generate Strong Secrets
 
 **Linux/Mac:**
+
 ```bash
 openssl rand -base64 32
 ```
 
 **Windows (PowerShell):**
+
 ```powershell
 [Convert]::ToBase64String([System.Security.Cryptography.RandomNumberGenerator]::GetBytes(32))
 ```
@@ -41,6 +43,7 @@ openssl rand -base64 32
 ### 3. Secure Docker Configuration
 
 Update `docker-compose.yml` for production:
+
 - Set `restart: always`
 - Remove volume mappings if not needed
 - Set resource limits
@@ -50,6 +53,7 @@ Update `docker-compose.yml` for production:
 ### Option 1: Single Server Deployment
 
 **Requirements:**
+
 - Linux server (Ubuntu 20.04+ recommended)
 - Docker & Docker Compose installed
 - SSH access to server
@@ -57,7 +61,8 @@ Update `docker-compose.yml` for production:
 
 **Steps:**
 
-1. **Set up server**
+1. Set up server
+
 ```bash
 ssh user@your-domain.com
 sudo apt update && sudo apt upgrade -y
@@ -67,7 +72,8 @@ sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-2. **Deploy application**
+2.**Deploy application**
+
 ```bash
 git clone your-repo-url personal-website
 cd personal-website
@@ -76,7 +82,8 @@ cp .env.example .env
 docker-compose up -d --build
 ```
 
-3. **Set up Nginx reverse proxy**
+3.**Set up Nginx reverse proxy**
+
 ```nginx
 server {
     listen 80;
@@ -107,7 +114,8 @@ server {
 }
 ```
 
-4. **Set up SSL with Let's Encrypt**
+4.**Set up SSL with Let's Encrypt**
+
 ```bash
 sudo apt install certbot python3-certbot-nginx -y
 sudo certbot certonly --nginx -d your-domain.com
@@ -178,16 +186,19 @@ jobs:
 ## Maintenance Tasks
 
 **Daily:**
+
 - Check application logs
 - Monitor disk space
 - Verify backups completed
 
 **Weekly:**
+
 - Review error logs
 - Check database size
 - Verify SSL certificate expiration
 
 **Monthly:**
+
 - Update base images
 - Update dependencies
 - Test disaster recovery
@@ -197,6 +208,7 @@ jobs:
 ### Recovery Procedures
 
 **Database corruption:**
+
 ```bash
 # Restore from backup
 docker-compose down
@@ -205,6 +217,7 @@ docker-compose up -d
 ```
 
 **Complete server failure:**
+
 ```bash
 # On new server:
 # 1. Install Docker
@@ -217,6 +230,7 @@ docker-compose up -d
 ## Production Checklist
 
 Before going live:
+
 - [ ] SSL certificate installed
 - [ ] Backups automated and tested
 - [ ] Monitoring active

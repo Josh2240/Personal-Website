@@ -17,6 +17,7 @@ npm run dev
 ```
 
 During startup, verify:
+
 - [ ] Next.js dev server starts
 - [ ] Express backend starts
 - [ ] Database initializes
@@ -37,30 +38,35 @@ During startup, verify:
 ## API Tests
 
 ### Health Check
+
 ```bash
 curl http://localhost:3001/health
-```
+
+```curl
 - [ ] Returns 200 status
 - [ ] Response includes `success: true`
 
 ### Profile
 ```bash
 curl http://localhost:3001/api/profile
-```
+
+```bash
 - [ ] Returns 200 status
 - [ ] Response includes profile data (name, title, bio, etc.)
 
 ### Projects
 ```bash
 curl http://localhost:3001/api/projects
-```
+
+```curl
 - [ ] Returns 200 status
 - [ ] Response includes array of projects
 
 ### Socials
 ```bash
 curl http://localhost:3001/api/socials
-```
+
+```bash
 - [ ] Returns 200 status
 - [ ] Response includes social links
 

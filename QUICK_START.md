@@ -37,6 +37,7 @@ npm run dev
 ```
 
 This starts:
+
 - **Frontend (Next.js)** at `http://localhost:3000`
 - **Backend (Express API)** at `http://localhost:3001`
 
@@ -48,7 +49,7 @@ This starts:
 ## Useful Commands
 
 | Command | What it does |
-|---------|-------------|
+| --------- | ------------- |
 | `npm run dev` | Start both frontend and backend |
 | `npm run dev:frontend` | Start only Next.js |
 | `npm run dev:backend` | Start only Express API |
